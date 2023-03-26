@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<settings>
+    <category id="general" label="General">
+        <setting label="Instance URL" type="text" id="invidious_instance_url" default="https://invidious.projectsegfau.lt"/>
+        <setting label="Region" type="text" id="invidious_region" default="FR"/>
+    </category>
+</settings>

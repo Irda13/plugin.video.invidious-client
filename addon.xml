@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<addon id="plugin.video.invidious-client" name="Invidious Client" version="0.0.1" provider-name="Irda">
+    <requires>
+        <import addon="xbmc.python" version="3.0.0"/>
+        <import addon="script.module.requests" version="2.28.0"/>
+        <import addon="script.module.inputstreamhelper" version="0.5.0"/>
+        <import addon="inputstream.adaptive"/>
+    </requires>
+
+    <extension point="xbmc.python.pluginsource" library="main.py">
+        <provides>video</provides>
+    </extension>
+    <extension point="xbmc.python.module" library="resources/lib/"/>
+
+    <extension point="xbmc.addon.metadata">
+        <summary lang="en_GB">Invidious client</summary>
+        <description lang="en_GB">An Invidious client (YouTube front-end) for Kodi</description>
+        <language></language>
+        <platform>all</platform>
+        <license>GPL v3</license>
+        <source>https://github.com/Irda13/plugin.video.invidious-client</source>
+        <assets>
+            <icon>icon.png</icon>
+        </assets>
+    </extension>
+</addon>
