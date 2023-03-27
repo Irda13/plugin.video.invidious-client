@@ -25,16 +25,8 @@ class InvidiousPlugin:
         self._router.register_route("play_video", self.play_video)
 
     def main_menu(self):
-
-        def add_list_item(label, path):
-            listitem = xbmcgui.ListItem(label)
-            xbmcplugin.addDirectoryItem(self._plugin_handle,
-                                        url=self._router.build_route(path),
-                                        listitem=listitem,
-                                        isFolder=True)
-
         # Trending list
-        add_list_item("Trending", "trending")
+        self._add_subdirectory("Trending", "trending")
 
         xbmcplugin.endOfDirectory(self._plugin_handle)
 
@@ -107,3 +99,11 @@ class InvidiousPlugin:
 
     def _get_addon_text(self, text_id):
         return self._addon.getLocalizedString(text_id)
+
+    def _add_subdirectory(self, label, route, **args):
+        list_item = xbmcgui.ListItem(label)
+        xbmcplugin.addDirectoryItem(self._plugin_handle,
+                                    url=self._router.build_route(
+                                        route, **args),
+                                    listitem=list_item,
+                                    isFolder=True)
