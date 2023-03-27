@@ -26,6 +26,11 @@ class InvidiousClient:
 
         return self.VideoStream(dash_url)
 
+    def search(self, query, region):
+        response = self._request("search", q=query, region=region).json()
+
+        return self._json_to_VideoListItems(response)
+
     def _request(self, method, **params):
         full_url = self._url + method
         response = requests.get(full_url, params=params, timeout=5)

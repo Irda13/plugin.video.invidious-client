@@ -1,11 +1,13 @@
 import xbmcaddon
 import xbmcgui
 import xbmcplugin
+import xbmcvfs
 
 from urllib.parse import urlencode, urlparse
 
 from .router import Router
-from lib.invidious_client import InvidiousClient
+from .history import HistoryFile
+from .invidious_client import InvidiousClient
 
 import inputstreamhelper
 
@@ -23,8 +25,15 @@ class InvidiousPlugin:
         self._router.register_route("main_menu", self.main_menu)
         self._router.register_route("trending", self.trending)
         self._router.register_route("play_video", self.play_video)
+        self._router.register_route("search_menu", self.search_menu)
+        self._router.register_route("search", self.search)
+        self._router.register_route("search_history", self.search_history)
 
     def main_menu(self):
+        # Search
+        self._add_subdirectory("Search", "search_menu")
+        # Search history
+        self._add_subdirectory("Search history", "search_history")
         # Trending list
         self._add_subdirectory("Trending", "trending")
 
@@ -57,6 +66,29 @@ class InvidiousPlugin:
         xbmcplugin.setResolvedUrl(self._plugin_handle,
                                   succeeded=True,
                                   listitem=play_item)
+
+    def search_menu(self):
+        # query search terms with a dialog
+        dialog = xbmcgui.Dialog()
+        query = dialog.input("Search", type=xbmcgui.INPUT_ALPHANUM)
+        if query:
+            self.search(query)
+            self._update_search_history(query)
+
+    def search(self, query):
+        client = self._get_client()
+        videos = client.search(query=query,
+                               region=self._get_setting("invidious_region"))
+
+        self._display_videos(videos)
+
+        xbmcplugin.endOfDirectory(self._plugin_handle)
+
+    def search_history(self):
+        history = self._get_search_history().entries
+        for entry in history:
+            self._add_subdirectory(entry, "search", query=entry)
+        xbmcplugin.endOfDirectory(self._plugin_handle)
 
     def run(self, query):
         # just route to the correct handler
@@ -107,3 +139,16 @@ class InvidiousPlugin:
                                         route, **args),
                                     listitem=list_item,
                                     isFolder=True)
+
+    def _get_search_history(self):
+        try:
+            max_entries = int(self._get_setting("search_history_max_entries"))
+        except ValueError:
+            max_entries = 20
+
+        return HistoryFile(self._addon, "entries", max_entries, "search/")
+
+    def _update_search_history(self, query):
+        # save history
+        history = self._get_search_history()
+        history.add_entry(query)

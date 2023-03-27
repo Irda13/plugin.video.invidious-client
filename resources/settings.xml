@@ -3,5 +3,6 @@
     <category id="general" label="General">
         <setting label="Instance URL" type="text" id="invidious_instance_url" default="https://invidious.projectsegfau.lt"/>
         <setting label="Region" type="text" id="invidious_region" default="FR"/>
+        <setting label="Search history max entries" type="number" id="search_history_max_entries" default="20"/>
     </category>
 </settings>
