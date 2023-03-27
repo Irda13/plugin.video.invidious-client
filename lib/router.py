@@ -1,11 +1,11 @@
-from urllib.parse import urlencode, urlparse, parse_qs
+from urllib.parse import urlencode, urlparse, parse_qsl
 
 
 class Router:
 
     def __init__(self, base_url, default_route):
         self._base_url = base_url
-        self._default_route = [default_route]
+        self._default_route = default_route
         self._routes = {}
 
     def build_route(self, route, **kwargs):
@@ -13,9 +13,9 @@ class Router:
         return f"{self._base_url}?{urlencode(kwargs)}"
 
     def call(self, query):
-        args = parse_qs(urlparse(query).query)
+        args = dict(parse_qsl(urlparse(query).query))
 
-        route = args.pop("route", self._default_route)[0]
+        route = args.pop("route", self._default_route)
         handler = self._routes.get(route, None)
         if handler is None:
             raise RuntimeError(f"Unregistered route: '{route}'")
