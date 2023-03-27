@@ -75,12 +75,21 @@ class InvidiousPlugin:
             self.search(query)
             self._update_search_history(query)
 
-    def search(self, query):
+    def search(self, query, page=1):
+        # sanitize page argument
+        page = int(page)
         client = self._get_client()
         videos = client.search(query=query,
+                               page=page,
                                region=self._get_setting("invidious_region"))
 
         self._display_videos(videos)
+
+        # Add next page menu
+        self._add_subdirectory("Next page",
+                               "search",
+                               query=query,
+                               page=page + 1)
 
         xbmcplugin.endOfDirectory(self._plugin_handle)
 
