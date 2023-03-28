@@ -18,7 +18,7 @@ class InvidiousClient:
         return self._json_to_VideoListItems(response)
 
     def video(self, video_id):
-        response = self._request(f"videos/{video_id[0]}").json()
+        response = self._request(f"videos/{video_id}").json()
 
         dash_url = response.get("dashUrl", None)
         if dash_url is None:
@@ -27,7 +27,7 @@ class InvidiousClient:
         return self.VideoStream(dash_url)
 
     def search(self, query, page, region):
-        response = self._request("search", q=query, region=region).json()
+        response = self._request("search", q=query, page=page, region=region).json()
 
         return self._json_to_VideoListItems(response)
 
