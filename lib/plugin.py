@@ -12,7 +12,7 @@ from .invidious_client import InvidiousClient
 import inputstreamhelper
 
 
-class InvidiousPlugin:
+class Plugin:
 
     def __init__(self, plugin_url, plugin_handle):
         self._plugin_handle = plugin_handle
@@ -41,7 +41,7 @@ class InvidiousPlugin:
 
     def trending(self):
         client = self._get_client()
-        videos = client.trending(region=self._get_setting("invidious_region"))
+        videos = client.trending(region=self._get_setting("region"))
 
         self._display_videos(videos)
         xbmcplugin.endOfDirectory(self._plugin_handle)
@@ -81,7 +81,7 @@ class InvidiousPlugin:
         client = self._get_client()
         videos = client.search(query=query,
                                page=page,
-                               region=self._get_setting("invidious_region"))
+                               region=self._get_setting("region"))
 
         self._display_videos(videos)
 
@@ -133,7 +133,7 @@ class InvidiousPlugin:
                                         listitem=list_item)
 
     def _get_client(self):
-        return InvidiousClient(self._get_setting("invidious_instance_url"))
+        return InvidiousClient(self._get_setting("instance_url"))
 
     def _get_setting(self, key):
         return xbmcplugin.getSetting(self._plugin_handle, key)

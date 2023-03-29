@@ -1,2 +1,2 @@
-# plugin.video.invidious-client
-An Invidious (YouTube front-end) client Kodi plugin
+# plugin.video.piped-client
+A Piped client (YouTube front-end) for Kodi

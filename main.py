@@ -1,6 +1,6 @@
 import sys
 
-from lib import InvidiousPlugin
+from lib import Plugin
 
 
 def main():
@@ -9,7 +9,7 @@ def main():
     # get plugin handle as integer
     plugin_handle = int(sys.argv[1])
     # instanciate our plugin object
-    plugin = InvidiousPlugin(plugin_url, plugin_handle)
+    plugin = Plugin(plugin_url, plugin_handle)
     # run plugin with args
     plugin_args = sys.argv[2]
     plugin.run(plugin_args)

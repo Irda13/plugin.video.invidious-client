@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<addon id="plugin.video.invidious-client" name="Invidious Client" version="0.0.1" provider-name="Irda">
+<addon id="plugin.video.piped-client" name="Piped (YouTube) Client" version="0.0.1" provider-name="Irda">
     <requires>
         <import addon="xbmc.python" version="3.0.0"/>
         <import addon="script.module.requests" version="2.27.0"/>
@@ -13,12 +13,12 @@
     <extension point="xbmc.python.module" library="resources/lib/"/>
 
     <extension point="xbmc.addon.metadata">
-        <summary lang="en_GB">Invidious client</summary>
-        <description lang="en_GB">An Invidious client (YouTube front-end) for Kodi</description>
+        <summary lang="en_GB">Piped (YouTube) client</summary>
+        <description lang="en_GB">A Piped client (YouTube front-end) for Kodi</description>
         <language></language>
         <platform>all</platform>
-        <license>GPL v3</license>
-        <source>https://github.com/Irda13/plugin.video.invidious-client</source>
+        <license>GPL-3.0-only</license>
+        <source>https://github.com/Irda13/plugin.video.piped-client</source>
         <assets>
             <icon>icon.png</icon>
             <fanart>resources/fanart.jpg</fanart>
